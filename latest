@@ -1,0 +1,23 @@
+#!/usr/bin/python
+
+import socket, argparse
+import os
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-n", "--lines", dest="lines", default="1", help="print the first K lines instead of the first")
+    parser.add_argument('-l', help="long", action="store_true")
+    parser.add_argument('dir', nargs='*', default='.', help='dir')
+    args = parser.parse_args()
+
+    direct = '.'
+    if args.dir:
+      direct = args.dir[0]
+
+    if args.l:
+        os.system("ls --color -lt {} | sed 1d | head -n {}".format(direct, args.lines))
+    else:
+        os.system("ls --color -t {} | head -n {}".format(direct, args.lines))
+
+if __name__ == "__main__":
+    main()
